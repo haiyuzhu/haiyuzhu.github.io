@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+                <meta charset="utf-8">
+                <!--Music-->
+                <audio id="Music">
+                        <source src = "./media/夜的钢琴曲.mp3" type="audio/mpeg"/>
+                </audio>
+
+	</head>
+	<body>
+	<script src="./js/three.min.js"></script>
+
+        <script src="./js/OrbitControls.js"></script>
+        <script src="./js/OBJMTLLoader.js"></script>
+        <script src="./js/MTLLoader.js"></script>
+        <script src="./js/GPUParticleSystem.js" charset="utf-8"></script>
+        <script>
+                var container;
+                var camera, scene, renderer, ambient, directionalLight;
+                var controls, model;
+                var bMove = true;
+                //partical
+                var options,spawnerOptions, particalSystem;
+                var bPartical = false;
+                var clock = new THREE.Clock(true), tick = 0;
+
+                initCamera();
+                initLight();
+                initRender();
+                initScene();
+                initModel();
+                animate();
+                function playMusic()
+                {
+                        var music = document.getElementById("Music");
+                        music.play();
+                }
+                function initModel()
+                {
+                        //load file
+                        var loader = new THREE.OBJMTLLoader();
+                        loader.load('./3dModel/ff.obj',
+                                './3dModel/ff.mtl', 
+                                function(obj)
+                                {
+                                        model = obj;
+                                        obj.position.y -= 3.5;
+                                        scene.add( obj );
+                                });
+                }
+                function initCamera()
+                {
+                        //camera
+                        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+                        camera.position.x = 0;
+                        camera.position.z = 3;
+                        camera.position.y = 0;
+                }
+                function initLight()
+                {
+                        directionalLight = new THREE.DirectionalLight( 0xaaaaaa );
+                        directionalLight.position.set( 0, -1, 0 );
+                        ambient = new THREE.AmbientLight( 0x101010 );
+                        
+                }
+                function initRender()
+                {
+                        //renderer
+                        renderer = new THREE.WebGLRenderer({
+                                alpha : true,
+                                antialias : true
+                        });
+                        renderer.setPixelRatio( window.devicePixelRatio );
+                        renderer.setSize( window.innerWidth, window.innerHeight );
+                }
+                function initScene()
+                {
+        	       container = document.createElement( 'div' );
+                       container.appendChild( renderer.domElement );
+        	       document.body.appendChild( container);
+                        //scene
+                        scene = new THREE.Scene();
+                        scene.add( directionalLight );
+                        scene.add( ambient );
+                        //controls
+                        controls = new THREE.OrbitControls( camera, renderer.domElement );
+                        controls.enableDamping = false;
+                        controls.dampingFactor = 0.25;
+                        controls.enableZoom = true;
+               }
+                function animate()
+                {
+                        requestAnimationFrame( animate );
+                        if (bMove && model.position.y < -0.8)
+                        {
+                                model.position.y += 0.004;        
+                        }
+                        else
+                        {
+                                bMove = false;
+                                bPartical = true;
+                        }
+                        model.rotation.y += 0.01;
+                        directionalLight.position.set(camera.position.x, camera.position.y, camera.position.z);
+                        renderer.render(scene, camera);    
+                        playMusic();
+                }
+        </script>
+	</body>
+</html>
