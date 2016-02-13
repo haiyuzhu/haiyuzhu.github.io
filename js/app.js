@@ -103,29 +103,29 @@
 	}
 
 	var p = new L.Promise();
-	show(undefined, 3000).then(
+	show(undefined, 4000).then(
 		function() {
 			return show(rise, 0)
 		}
 	).then(
 		function() {
-			return show(down, 3000)
+			return show(down, 4000)
 		}
 	).then(
 		function() {
-			return show(yours, 3000)
+			return show(yours, 4000)
 		}
 	).then(
 		function() {
-			return show(together, 3000)
+			return show(together, 4000)
 		}
 	).then(
 		function() {
-			return show(rose, 3000)
+			return show(rose, 4000)
 		}
 	).then(
 		function() {
-			return show(final, 3000)
+			return show(final, 4000)
 		}
 	);
 
