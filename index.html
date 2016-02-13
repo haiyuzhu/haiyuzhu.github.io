@@ -1,121 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset = "utf-8">
-        <!--Music-->
-        <audio id="Music">
-            <source src = "./media/夜的钢琴曲.mp3" type = "audio/mpeg"/>
-        </audio>
-    </head>
-    <body>
-    <script src = "./js/three.min.js"></script>
-    <script src = "./js/OBJMTLLoader.js"></script>
-    <script src = "./js/MTLLoader.js"></script>
-    <script src = "./js/OrbitControls.js"></script>
-    <script src = "./js/GPUParticleSystem.js"></script>
-
-    <script type="text/javascript" src = "http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
-    <script type="text/javascript" src = "http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
-
-
-    <div style="position:absolute; width:100%; height:100%; z-index:-1">
-        <img id = "picture" src="./pic/fg.jpg" height="100%" width="100%"/>
-    </div>
-
-    <!--Snow-->
-    <script type="text/javascript" src = "./js/snow.js"></script>
-    <script>
-        function changPicture()
-        {
-            var pic = document.getElementById("picture");
-            pic.src = "./pic/bg.jpg";
-        }
-        function Snow()
-        {
-            $(function(){
-                $.fn.snow({
-                    minSize: 5, /* 定义雪花最小尺寸 */
-                    maxSize: 50,/* 定义雪花最大尺寸 */
-                    newOn: 300  /* 定义密集程度，数字越小越密集 */
-                });
-            });
-        }
-        function playMusic()
-        {
-            var music = document.getElementById("Music");
-            music.play();
-        }
-    </script>
-
-    <script>
-        var container;
-        var camera, scene, render, ambient, directionalLight;
-        var controls, model;
-        var bMove = true;
-
-        initCamera();
-        initScene();
-        Snow();
-        setTimeout(changPicture , 2000);
-        animate();
-
-        function initCamera()
-        {
-            camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 2000);
-            camera.position.z = 90;
-        }
-        function initScene()
-        {
-            //scene
-            scene = new THREE.Scene();
-            //light
-            directionalLight = new THREE.DirectionalLight(0xaaaaaa);
-            directionalLight.position.set(0, -1, 0);
-            ambient = new THREE.AmbientLight(0x101010);
-            //render
-            renderer = new THREE.WebGLRenderer({
-                alpha : true,
-                antialias : true
-            });
-            renderer.setPixelRatio( );
-            renderer.setSize( window.innerWidth, window.innerHeight );
-            //object
-            var loader = new THREE.OBJMTLLoader();
-            loader.load("./3dModel/rose.obj",
-            "./3dModel/rose.mtl",
-            function(obj)
-            {
-                obj.position.y -= 120;
-                model = obj;
-                scene.add(obj);
-            });
-
-            container = document.createElement("div");
-            container.appendChild(renderer.domElement);
-            document.body.appendChild(container);
-            scene.add(directionalLight);
-            scene.add(ambient);
-            //controls
-            controls = new THREE.OrbitControls( camera, renderer.domElement);
-            controls.enableZoom = true;
-        }
-        function animate()
-        {
-            requestAnimationFrame(animate);
-            if (bMove &&  model.position.y < -60)
-            {
-                model.position.y += 0.1;
-            }
-            else
-            {
-                bMove = false;
-            }
-            model.rotation.y += 0.01;
-            directionalLight.position.set(camera.position.x, camera.position.y, camera.position.z);
-            renderer.render(scene, camera);
-            playMusic();
-        }
-    </script>
-
-    </body>
+﻿<html>
+<head>
+    <meta charset="UTF-8">
+    <title>A gift for Xiya</title>
+    <meta name="description" content="A gift for Xiya">
+    <link href="css/main.css" rel="stylesheet" type="text/css"/>
+    <script src="js/lettuce.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+    <audio id="Music">
+        <source src="./media/sky.mp3" type="audio/mpeg" />
+    </audio>
+<div id="results">
+    <div class="home"><h1 class="typing">一直期盼你的出现..........</h1></div>
+</div>
+</body>
 </html>
