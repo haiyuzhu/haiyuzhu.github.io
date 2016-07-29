@@ -1,8 +1,8 @@
 p {font-family: Microsoft YaHei, SimSun; max-width: 60%; text-align: center; margin: auto; font-size: 200%;}
 h1 {max-width: 60%; text-align: left; margin: auto;}
 /*img {max-width: 60%; margin: auto; display: block;} */
-.im {width: 60%; margin: 0 auto; display: block;}
-.im.alignleft {display: inline; float: left;}
-.im.alignright {display: inline; float: right;}
+.im {width: 60%; margin: 1% 20% 1% 20%; display: block;}
+.im.alignleft {display: inline; width: 30%; }
+.im.alignright { width: 30%; margin-left: 50%; float: left;}
 .im.bigger {width: 60%;}
-.im.small {width: 30%;}
+.im.small {width: 30%; margin: auto;}
